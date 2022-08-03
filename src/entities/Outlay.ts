@@ -16,14 +16,17 @@ export class Outlay {
   @Column({type: 'float'})
   value: number;
 
-  @Column()
+  @Column({nullable: true})
   installments_quantity: number;
 
-  @Column()
+  @Column({nullable: true})
   date: Date;
 
-  @Column()
+  @Column({nullable: true})
   pay: Date;
+
+  @Column({default: false})
+  basic: boolean;
 
   @OneToMany(() => Installment, Installment => Installment.outlay_id)
   installments: Installment[]

@@ -6,4 +6,5 @@
 <ul>
   <li>Criar planejamento mensal a partir de uma data de início e número de meses</li>
   <li>Lançar compras parceladas</li>
+  <li>Definir previamente gastos básicos de todo mês</li>
 </ul>

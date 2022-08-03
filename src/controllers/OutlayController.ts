@@ -5,9 +5,12 @@ import { verifyPaymentDate } from "../utils/createMonthsAndYears";
 
 export class OutlayController {
   async create(req: Request, res: Response) {
-    const { description, value, installments_quantity, date, pay } = req.body;
+    const { basic, description, value, installments_quantity, date, pay } = req.body;
 
-    if (!description || !value || !installments_quantity || !date || !pay) {
+    console.log(req.body);
+    
+
+    if (!basic && (!description || !value || !installments_quantity || !date || !pay)) {
       return res.status(400).json({ message: 'Informe todos os campos' })
     }
 
@@ -17,7 +20,8 @@ export class OutlayController {
         value,
         installments_quantity,
         date,
-        pay
+        pay,
+        basic
       });
 
       const outlay = await outlayRepository.save(newOutlay);
@@ -31,8 +35,10 @@ export class OutlayController {
           outlay_id: Number(outlay.id),
         };
 
-        installmentRepository.create(element);
-        await installmentRepository.save(element);
+        if (!outlay.basic) {
+          installmentRepository.create(element);
+          await installmentRepository.save(element);
+        }
       }
 
       return res.status(201).json(newOutlay);

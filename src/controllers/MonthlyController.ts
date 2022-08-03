@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { installmentRepository } from "../repositories/installmentRepository";
 import { monthlyRepository } from "../repositories/monthlyRepository";
+import { outlayRepository } from "../repositories/outlayRepository";
 import { verifyPaymentDate } from "../utils/createMonthsAndYears";
 
 export class MonthlyController {
@@ -8,9 +9,11 @@ export class MonthlyController {
     const { date, quantity_months, amount } = req.body;
 
     try {
-      for (let index = 1; index <= quantity_months; index++) {
-        await installmentRepository.find({ where: { month: verifyPaymentDate(date, index, quantity_months, 'planning')?.paymentMonth, year: verifyPaymentDate(date, index, quantity_months, 'planning')?.paymentYear } });
+      const outlays = await outlayRepository.find();
+      const basicsOutlay = outlays.filter((item) => item.basic === true).map((element) => element);
+      console.log(basicsOutlay);
 
+      for (let index = 1; index <= quantity_months; index++) {     
         const element = {
           month: verifyPaymentDate(date, index, quantity_months, 'planning')?.paymentMonth,
           year: verifyPaymentDate(date, index, quantity_months, 'planning')?.paymentYear,
@@ -21,6 +24,17 @@ export class MonthlyController {
 
         if (!monthFinded) {
           monthlyRepository.create(element);
+          if(basicsOutlay.length){
+            basicsOutlay.map((item) => {
+              const newInstallmentBasic = {
+                number_installment: 1,
+                month: verifyPaymentDate(date, index, quantity_months, 'planning')?.paymentMonth,
+                year: verifyPaymentDate(date, index, quantity_months, 'planning')?.paymentYear,
+                value: item.value
+              }
+              installmentRepository.save(newInstallmentBasic);
+            })
+          }
           await monthlyRepository.save(element);
         }
       }
