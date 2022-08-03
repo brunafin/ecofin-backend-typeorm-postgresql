@@ -1,0 +1,15 @@
+Compras - Outlays
++ criar compra (POST)
++ editar compra (UPDATE)
++ buscar todas as compras (GET)
++ buscar compra por id (GET)
++ excluir compra (DELETE)
+
+Parcelas - Installments
++ criar parcela (POST) - através da criação da compra
++ excluir parcela (DELETE) - através da exclusão da compra
+
+Mensal - Monthly
++ criar mês (POST)
++ editar mês parcial (PATCH) - somente o valor de entrada
++ buscar mês por mês/ano
