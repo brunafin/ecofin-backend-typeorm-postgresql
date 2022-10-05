@@ -10,22 +10,22 @@ export class Outlay {
   @Column()
   description: string;
 
-  @CreateDateColumn({type: 'timestamp with time zone'})
+  @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at: Date;
 
-  @Column({type: 'float'})
+  @Column({ type: 'float' })
   value: number;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   installments_quantity: number;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   date: Date;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   pay: Date;
 
-  @Column({default: false})
+  @Column({ default: false })
   basic: boolean;
 
   @OneToMany(() => Installment, Installment => Installment.outlay_id)

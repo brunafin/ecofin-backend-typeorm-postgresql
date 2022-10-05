@@ -1,5 +1,5 @@
 export const verifyPaymentDate = (date: string, currentlyQuantity: number, totalQuantity: number, type = 'installments') => {
-  const month = type === 'installments' ? new Date(date).getMonth() :  new Date(date).getMonth() + 1;
+  const month = type === 'installments' ? new Date(date).getMonth() : new Date(date).getMonth() + 1;
   const year = new Date(date).getFullYear();
   if (currentlyQuantity <= totalQuantity) {
     const monthAdd = month + currentlyQuantity;

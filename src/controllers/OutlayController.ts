@@ -8,7 +8,7 @@ export class OutlayController {
     const { basic, description, value, installments_quantity, date, pay } = req.body;
 
     console.log(req.body);
-    
+
 
     if (!basic && (!description || !value || !installments_quantity || !date || !pay)) {
       return res.status(400).json({ message: 'Informe todos os campos' })

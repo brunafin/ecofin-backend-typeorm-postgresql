@@ -1,23 +1,23 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('monthly')
-export class Monthly{
-  
+export class Monthly {
+
   @PrimaryGeneratedColumn()
   id: string;
-  
+
   @Column()
   month: string;
-  
+
   @Column()
   year: string;
-  
-  @Column({nullable: true})
+
+  @Column({ nullable: true })
   amount: number;
-  
-  @Column({nullable: true})
+
+  @Column({ nullable: true })
   outlay: number;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   economy: number;
 }

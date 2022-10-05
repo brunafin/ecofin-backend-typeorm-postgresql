@@ -13,7 +13,7 @@ export class MonthlyController {
       const basicsOutlay = outlays.filter((item) => item.basic === true).map((element) => element);
       console.log(basicsOutlay);
 
-      for (let index = 1; index <= quantity_months; index++) {     
+      for (let index = 1; index <= quantity_months; index++) {
         const element = {
           month: verifyPaymentDate(date, index, quantity_months, 'planning')?.paymentMonth,
           year: verifyPaymentDate(date, index, quantity_months, 'planning')?.paymentYear,
@@ -24,7 +24,7 @@ export class MonthlyController {
 
         if (!monthFinded) {
           monthlyRepository.create(element);
-          if(basicsOutlay.length){
+          if (basicsOutlay.length) {
             basicsOutlay.map((item) => {
               const newInstallmentBasic = {
                 number_installment: 1,
@@ -64,8 +64,8 @@ export class MonthlyController {
     const { amount } = req.body;
 
     try {
-      await monthlyRepository.update(id, {amount})
-      
+      await monthlyRepository.update(id, { amount })
+
       return res.status(204).end();
 
     } catch (error) {

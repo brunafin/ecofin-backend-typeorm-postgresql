@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import { installmentRepository } from "../repositories/installmentRepository";
 
 export class InstallmentController {
-  async create(req: Request, res: Response){
-    const {number_installment, month, year, outlay_id, value} = req.body;
+  async create(req: Request, res: Response) {
+    const { number_installment, month, year, outlay_id, value } = req.body;
 
     try {
       const newInstallment = installmentRepository.create({
