@@ -11,7 +11,6 @@ export class MonthlyController {
     try {
       const outlays = await outlayRepository.find();
       const basicsOutlay = outlays.filter((item) => item.basic === true).map((element) => element);
-      console.log(basicsOutlay);
 
       for (let index = 1; index <= quantity_months; index++) {
         const element = {
@@ -48,10 +47,19 @@ export class MonthlyController {
 
   async getMonthAndYear(req: Request, res: Response) {
     const { month, year } = req.body;
+    console.log(req.body);
 
     try {
       const monthly = await monthlyRepository.findOne({ where: { month, year } })
-      return res.status(200).json(monthly);
+      const installments = await installmentRepository.find({
+        where: {
+          month: month,
+          year: year
+        },
+        relations: { outlay_id: true }
+      });
+
+      return res.status(200).json({ ...monthly, outlay: installments });
 
     } catch (error) {
       console.log(error);

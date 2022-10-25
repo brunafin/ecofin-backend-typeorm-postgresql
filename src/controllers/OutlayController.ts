@@ -7,9 +7,6 @@ export class OutlayController {
   async create(req: Request, res: Response) {
     const { basic, description, value, installments_quantity, date, pay } = req.body;
 
-    console.log(req.body);
-
-
     if (!basic && (!description || !value || !installments_quantity || !date || !pay)) {
       return res.status(400).json({ message: 'Informe todos os campos' })
     }
@@ -84,7 +81,7 @@ export class OutlayController {
 
       const installmentsByOutlay = await installmentRepository.find({ where: { outlay_id: Number(id) } });
 
-      const total = installmentsByOutlay.map((item) => item.value).reduce((acc, cur) => acc + cur);
+      const total = installmentsByOutlay.map((item) => item.value).reduce((acc, cur) => acc + cur, 0);
 
       if (!(total === value)) {
         installmentsByOutlay.forEach((item) => installmentRepository.delete(item.id));
