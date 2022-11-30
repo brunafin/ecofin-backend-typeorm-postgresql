@@ -47,7 +47,6 @@ export class MonthlyController {
 
   async getMonthAndYear(req: Request, res: Response) {
     const { month, year } = req.body;
-    console.log(req.body);
 
     try {
       const monthly = await monthlyRepository.findOne({ where: { month, year } })

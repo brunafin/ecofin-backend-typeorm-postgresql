@@ -1,6 +1,7 @@
 import express from 'express';
 import { AppDataSource } from './data-source';
-import routes from './routes';
+import router from './routes';
+
 
 AppDataSource.initialize()
   .then(() => {
@@ -11,7 +12,7 @@ AppDataSource.initialize()
 
     app.use(express.json());
 
-    app.use('/api', routes);
+    app.use('/api', router);
 
     return app.listen(process.env.PORT);
   })
